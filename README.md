@@ -115,4 +115,4 @@ Scenario B: Load & Saturation Analysis
 + Networking: AWS ALB Ingress Controller
 
 
-Built with Love by [Soulayman Jazouli] as a demonstration of modern Cloud Native practices 
+Built with Love by Soulayman Jazouli as a demonstration of modern Cloud Native practices 
