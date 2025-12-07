@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-deployment
+  namespace: ops-commander
+  labels:
+    app: commander-ui
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: commander-ui
+  template:
+    metadata:
+      labels:
+        app: commander-ui
+    spec:
+      containers:
+        - name: ui
+          image: solajaz/commander-ui:v6
+          ports:
+            - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: commander-ui-svc
+  namespace: ops-commander
+  labels:
+    app: commander-ui
+spec:
+  type: ClusterIP
+  selector:
+    app: commander-ui
+  ports:
+    - port: 80
+      targetPort: 80

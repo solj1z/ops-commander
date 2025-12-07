@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: slack-secret
+  namespace: ops-commander
+type: Opaque
+stringData:
+  warning-url: #"https://hooks.slack.com/services/......."
+  default-url: #"https://hooks.slack.com/services/......."
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: email-secret
+  namespace: ops-commander
+type: Opaque
+stringData:
+  username: #"xxxxxxxxx@gmail.com"
+  password: #"xxxx xxxx xxxx xxxx" 
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: routed-alerts
+  namespace: ops-commander
+  labels:
+    release: prometheus-stack
+spec:
+  route:
+    receiver: default
+    groupBy: ["alertname"]
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    routes:
+      - matchers:
+          - name: severity
+            matchType: =
+            value: warning
+        receiver: slack-warning-receiver
+      - matchers:
+          - name: severity
+            matchType: =
+            value: critical
+        receiver: email-critical-receiver
+
+  receivers:
+    - name: default
+      slackConfigs:
+        - channel: "#default"
+          sendResolved: true
+          apiURL:
+            name: slack-secret
+            key: default-url
+
+    - name: slack-warning-receiver
+      slackConfigs:
+        - channel: "#warning_alerts"
+          sendResolved: true
+          apiURL:
+            name: slack-secret
+            key: warning-url
+
+    - name: email-critical-receiver
+      emailConfigs:
+        - to: #"xxxxxxxxxx@gmail.com"
+          from: #"xxxxxxxxxx@gmail.com"
+          smarthost: #"smtp.gmail.com:587"
+          authUsername: #"xxxxxxxxxx@gmail.com"
+          requireTLS: true
+          sendResolved: true
+          authPassword:
+            name: email-secret
+            key: password

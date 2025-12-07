@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: commander-alerts
+  namespace: monitoring
+  labels:
+    release: prometheus-stack
+spec:
+  groups:
+  - name: commander.rules
+    rules:
+    - alert: CommanderStressModeActivated
+      expr: app_stress_mode_active == 1
+      for: 5s
+      labels:
+        severity: warning
+      annotations:
+        summary: "🔥 Stress Test Initiated"
+        description: "User initiated a stress test on Ops-Commander."
+
+    - alert: CommanderPodKilled
+      expr: increase(app_chaos_pods_killed_total[1m]) > 0
+      labels:
+        severity: critical
+      annotations:
+        summary: "💀 Pod Assassinated"
+        description: "Chaos Monkey killed {{ $value }} pod(s)."
