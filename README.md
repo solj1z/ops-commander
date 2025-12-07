@@ -92,19 +92,19 @@ kubectl apply -f alertmanager.yaml (after you're own configuration)
 
 Scenario A: Resilience & High Availability
 
-1- Open the Ops Commander UI.
-2- Click "KILL RANDOM POD" (Chaos Monkey).
-3- Observation:
-    + Zero Downtime: The UI remains responsive because traffic is instantly routed to healthy replicas.
-    + Observability: Grafana captures the "Kill Event" instantly, and the "Active Replicas" graph shows the automatic recovery.
+1. Open the Ops Commander UI.
+2. Click "KILL RANDOM POD" (Chaos Monkey).
+3. Observation:
++ Zero Downtime: The UI remains responsive because traffic is instantly routed to healthy replicas.
++ Observability: Grafana captures the "Kill Event" instantly, and the "Active Replicas" graph shows the automatic recovery.
 
 Scenario B: Load & Saturation Analysis
 
-1- Click "ACTIVATE LOAD".
-2- Observation:
-    + Grafana "Stress Status" turns RED.
-    + Saturation Metrics: CPU usage spikes are visualized per-pod.
-    + Alertmanager: Triggers a "HighLoad" alert to Slack, demonstrating proactive monitoring.
+1. Click "ACTIVATE LOAD".
+2. Observation:
++ Grafana "Stress Status" turns RED.
++ Saturation Metrics: CPU usage spikes are visualized per-pod.
++ Alertmanager: Triggers a "HighLoad" alert to Slack, demonstrating proactive monitoring.
 
 # 🛠️ Tech Stack
 
