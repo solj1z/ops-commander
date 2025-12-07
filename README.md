@@ -53,12 +53,13 @@ Least Privilege: Custom AWS IAM policies allow the ALB Controller to manage VPC 
 Network Isolation: Ingress rules strictly define traffic paths (/ vs /api), minimizing the attack surface.
 
 # 📂 Project Structure
+```
 ops-commander/
 ├── backend/               # Backend Microservice (Chaos Engine)
 ├── frontend/              # Frontend Microservice (Nginx UI)
 ├── monitoring/            # Grafana Dashboards, Prometheus ServiceMonitors & Alerting
 └── security/              # IAM Policies, RBAC, & Ingress Rules
-
+```
 # 🚀 Deployment Guide
 
 Prerequisites:
