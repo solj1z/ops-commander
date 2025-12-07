@@ -20,7 +20,6 @@ graph TD
         UI --> FrontendPod[Nginx Frontend]
         API --> BackendPod1[Node.js API - Replica 1]
         API --> BackendPod2[Node.js API - Replica 2]
-        API --> BackendPod3[Node.js API - Replica 3]
     end
 
     Prometheus[Prometheus] -->|Scrape /metrics| API
