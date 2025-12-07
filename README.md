@@ -66,18 +66,14 @@ Prerequisites:
 + AWS Load Balancer Controller installed.
 + Prometheus Operator (kube-prometheus-stack) installed.
 
-1. Infrastructure Setup
-Create the namespace and apply security configurations.
-# Create Namespace
-kubectl apply -f namespace.yaml
-# Apply IAM Policy & RBAC
+1. security
 kubectl apply -f security/rbac.yaml
 
 2. Deploy Microservices
 Deploy the separate Frontend and Backend tiers.
-# Backend Microservice (API + Chaos Logic)
++ Backend Microservice (API + Chaos Logic)
 kubectl apply -f backend/deployment.yaml
-# Frontend Microservice (UI)
++ Frontend Microservice (UI)
 kubectl apply -f frontend/deployment.yaml
 
 3. Configure Networking (Ingress)
